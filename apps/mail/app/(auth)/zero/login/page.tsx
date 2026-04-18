@@ -1,4 +1,5 @@
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { signIn } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,13 +22,19 @@ export default function LoginZero() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Use the correct sonner toast API
-    toast.success(`Trying to log in with ${values.email}`, {
-      description: 'Login attempt',
-    });
-
-    // Here you would typically handle authentication
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await toast.promise(
+      signIn.email({
+        email: values.email,
+        password: values.password,
+        callbackURL: `${window.location.origin}/settings/connections`,
+      }),
+      {
+        loading: 'Signing in...',
+        success: 'Signed in',
+        error: 'Sign in failed',
+      },
+    );
   }
 
   return (
@@ -91,7 +98,7 @@ export default function LoginZero() {
 
             <div className="mt-6 text-center text-sm">
               <p className="text-muted-foreground">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <a href="/zero/signup" className="text-white underline hover:text-white/80">
                   Sign up
                 </a>

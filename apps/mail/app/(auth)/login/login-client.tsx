@@ -1,7 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Suspense, useEffect, useState, type ReactNode } from 'react';
 import type { EnvVarInfo } from '@zero/server/auth-providers';
-import { Google, Microsoft } from '@/components/icons/icons';
+import { Google, Mail, Microsoft } from '@/components/icons/icons';
 import ErrorMessage from '@/app/(auth)/login/error-message';
 import { Button } from '@/components/ui/button';
 import { TriangleAlert } from 'lucide-react';
@@ -42,6 +42,8 @@ const getProviderIcon = (providerId: string, className?: string): ReactNode => {
 
     case 'microsoft':
       return <Microsoft className={defaultClass} />;
+    case 'imap':
+      return <Mail className={defaultClass} />;
 
     case 'zero':
       return (
@@ -70,7 +72,7 @@ const getProviderIcon = (providerId: string, className?: string): ReactNode => {
 function LoginClientContent({ providers, isProd }: LoginClientProps) {
   const navigate = useNavigate();
   const [expandedProviders, setExpandedProviders] = useState<Record<string, boolean>>({});
-  const [error, _] = useQueryState('error');
+  const [error] = useQueryState('error');
 
   useEffect(() => {
     const missing = providers.find((p) => p.required && !p.enabled);
@@ -108,14 +110,18 @@ function LoginClientContent({ providers, isProd }: LoginClientProps) {
   const shouldShowSimplifiedMessage = isProd && hasMissingRequiredProviders;
 
   const handleProviderClick = (provider: Provider) => {
+    if (provider.id === 'imap') {
+      navigate('/zero/login');
+      return;
+    }
     if (provider.isCustom && provider.customRedirectPath) {
       navigate(provider.customRedirectPath);
     } else {
       toast.promise(
-        signIn.social({
-          provider: provider.id as any,
-          callbackURL: `${window.location.origin}/mail`,
-        }),
+          signIn.social({
+            provider: provider.id as 'google' | 'microsoft',
+            callbackURL: `${window.location.origin}/mail`,
+          }),
         {
           error: 'Login redirect failed',
         },

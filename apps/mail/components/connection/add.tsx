@@ -109,12 +109,16 @@ export const AddConnectionDialog = ({
                   disabled={!canCreateConnection}
                   variant="outline"
                   className="h-24 w-full flex-col items-center justify-center gap-2"
-                  onClick={async () =>
+                  onClick={async () => {
+                    if (provider.providerId === 'imap') {
+                      window.location.href = '/zero/login';
+                      return;
+                    }
                     await authClient.linkSocial({
                       provider: provider.providerId,
                       callbackURL: `${window.location.origin}${pathname}`,
-                    })
-                  }
+                    });
+                  }}
                 >
                   <Icon className="size-6!" />
                   <span className="text-xs">{provider.name}</span>

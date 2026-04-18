@@ -18,7 +18,7 @@ import { dubAnalytics } from '@dub/better-auth';
 import { defaultUserSettings } from './schemas';
 import { disableBrainFunction } from './brain';
 import { APIError } from 'better-auth/api';
-import { type EProviders } from '../types';
+import { EProviders, type EProviders } from '../types';
 import { createDriver } from './driver';
 import { Autumn } from 'autumn-js';
 import { createDb } from '../db';
@@ -38,7 +38,7 @@ const scheduleCampaign = (userInfo: { address: string; name: string }) =>
             from: '0.email <onboarding@0.email>',
             to: userInfo.address,
             subject,
-            react: react as any,
+            react: react as never,
             ...(scheduledAt && { scheduledAt }),
           })
           .then(() => void 0),
@@ -89,6 +89,11 @@ const scheduleCampaign = (userInfo: { address: string; name: string }) =>
   });
 
 const connectionHandlerHook = async (account: Account) => {
+  const oauthProviders = new Set<string>([EProviders.google, EProviders.microsoft]);
+  if (!oauthProviders.has(account.providerId)) {
+    return;
+  }
+
   if (!account.accessToken || !account.refreshToken) {
     console.error('Missing Access/Refresh Tokens', { account });
     throw new APIError('EXPECTATION_FAILED', {
@@ -259,8 +264,8 @@ export const createAuth = () => {
       },
     },
     emailAndPassword: {
-      enabled: false,
-      requireEmailVerification: true,
+      enabled: true,
+      requireEmailVerification: false,
       sendResetPassword: async ({ user, url }) => {
         await resend().emails.send({
           from: '0.email <onboarding@0.email>',

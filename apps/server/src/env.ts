@@ -80,6 +80,12 @@ export type ZeroEnv = {
   REACT_SCAN: string;
   MICROSOFT_CLIENT_ID: string;
   MICROSOFT_CLIENT_SECRET: string;
+  IMAP_HOST: string;
+  IMAP_PORT: string;
+  IMAP_SECURE: 'true' | 'false';
+  SMTP_HOST: string;
+  SMTP_PORT: string;
+  SMTP_SECURE: 'true' | 'false';
   VOICE_SECRET: string;
   ARCADE_API_KEY: string;
   OPENAI_MODEL: string;

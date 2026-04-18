@@ -1,4 +1,5 @@
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { signUp } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,21 +17,26 @@ export default function SignupZero() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Append the @0.email suffix to the username
-    const fullEmail = `${values.email}@0.email`;
-
-    // Use the correct sonner toast API
-    toast.success(`Trying to signup with ${fullEmail}`, {
-      description: 'Signup attempt',
-    });
-
-    // Here you would typically handle authentication with the full email
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await toast.promise(
+      signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        callbackURL: `${window.location.origin}/settings/connections`,
+      }),
+      {
+        loading: 'Signing up...',
+        success: 'Account created',
+        error: 'Sign up failed',
+      },
+    );
   }
 
   return (
@@ -68,14 +74,11 @@ export default function SignupZero() {
                   <FormLabel className="text-muted-foreground">Email</FormLabel>
                   <FormControl>
                     <div className="relative w-full rounded-md">
-                      <Input
-                        placeholder="adam"
-                        {...field}
-                        className="w-full bg-black pr-16 text-sm text-white placeholder:text-sm"
-                      />
-                      <span className="bg-popover text-muted-foreground border-input absolute bottom-0 right-0 top-0 flex items-center rounded-r-md border border-l-0 px-3 py-2 text-sm">
-                        @0.email
-                      </span>
+                       <Input
+                         placeholder="you@example.com"
+                         {...field}
+                         className="w-full bg-black text-sm text-white placeholder:text-sm"
+                       />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -108,7 +111,7 @@ export default function SignupZero() {
 
             <div className="mt-6 text-center text-sm">
               <p className="text-muted-foreground">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <a href="/zero/login" className="text-white underline hover:text-white/80">
                   Login
                 </a>

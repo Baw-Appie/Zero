@@ -16,14 +16,14 @@ export interface ProviderConfig {
 }
 
 export const customProviders: ProviderConfig[] = [
-  // {
-  //   id: "zero",
-  //   name: "Zero",
-  //   requiredEnvVars: [],
-  //   config: {},
-  //   isCustom: true,
-  //   customRedirectPath: "/zero/signup"
-  // }
+  {
+    id: 'imap',
+    name: 'IMAP / SMTP',
+    requiredEnvVars: [],
+    config: {},
+    isCustom: true,
+    customRedirectPath: '/zero/login',
+  },
 ];
 
 export const authProviders = (env: Record<string, string>): ProviderConfig[] => [
@@ -47,7 +47,7 @@ export const authProviders = (env: Record<string, string>): ProviderConfig[] => 
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
-    required: true,
+    required: false,
   },
   //   {
   //     id: 'microsoft',

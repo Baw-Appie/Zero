@@ -148,6 +148,10 @@ export default function ConnectionsPage() {
                             variant="secondary"
                             size="sm"
                             onClick={async () => {
+                              if (connection.providerId === 'imap') {
+                                window.location.href = '/zero/login';
+                                return;
+                              }
                               await authClient.linkSocial({
                                 provider: connection.providerId,
                                 callbackURL: `${window.location.origin}/settings/connections`,
