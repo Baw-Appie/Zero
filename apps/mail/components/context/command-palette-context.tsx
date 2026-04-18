@@ -54,7 +54,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { format, subDays } from 'date-fns';
 import { VisuallyHidden } from 'radix-ui';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { Pencil2 } from '../icons/icons';
 import { Button } from '../ui/button';
 import { useQueryState } from 'nuqs';

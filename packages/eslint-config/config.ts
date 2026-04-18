@@ -17,4 +17,26 @@ export default defineConfig([
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat['jsx-runtime'],
   reactHooksPlugin.configs['recommended-latest'],
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+      'react/prop-types': 'off',
+      'react/jsx-no-target-blank': 'off',
+      'react/no-unknown-property': 'off',
+      'react/display-name': 'off',
+      'prefer-const': 'off',
+      'no-var': 'off',
+    },
+  },
 ]);

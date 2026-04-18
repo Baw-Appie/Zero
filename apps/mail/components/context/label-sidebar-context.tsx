@@ -17,7 +17,7 @@ import { useTRPC } from '@/providers/query-provider';
 import { useMutation } from '@tanstack/react-query';
 import { useState, type ReactNode } from 'react';
 import { useLabels } from '@/hooks/use-labels';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { Trash } from '../icons/icons';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';

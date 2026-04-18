@@ -21,7 +21,7 @@ import { useLabels } from '@/hooks/use-labels';
 
 import { Badge } from '@/components/ui/badge';
 
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 
 
 import { useState } from 'react';

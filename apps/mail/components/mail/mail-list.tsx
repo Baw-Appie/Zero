@@ -41,7 +41,7 @@ import { Badge } from '@/components/ui/badge';
 import { useDraft } from '@/hooks/use-drafts';
 import { Check, Star } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useParams } from 'react-router';
 import { Button } from '../ui/button';
 import { Avatar } from '../ui/avatar';

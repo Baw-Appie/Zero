@@ -10,7 +10,7 @@ import { SettingsCard } from '@/components/settings/settings-card';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useForm } from 'react-hook-form';
 
 import { useState } from 'react';

@@ -50,7 +50,7 @@ import { BimiAvatar } from '../ui/bimi-avatar';
 import { RenderLabels } from './render-labels';
 import { cleanHtml } from '@/lib/email-utils';
 import { MailContent } from './mail-content';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useParams } from 'react-router';
 import { FileText } from 'lucide-react';
 import { useQueryState } from 'nuqs';

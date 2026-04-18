@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { AlertTriangle } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { clear } from 'idb-keyval';
 import { useState } from 'react';
 import { toast } from 'sonner';

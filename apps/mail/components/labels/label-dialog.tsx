@@ -22,7 +22,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { Command } from 'lucide-react';
 
 interface LabelDialogProps {

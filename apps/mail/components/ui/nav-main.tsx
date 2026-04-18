@@ -11,7 +11,7 @@ import { useTRPC } from '@/providers/query-provider';
 import { type NavItem } from '@/config/navigation';
 import type { Label as LabelType } from '@/types';
 import { Link, useLocation } from 'react-router';
-import { m } from '../../paraglide/messages.js';
+import { m } from '@/lib/i18n/messages';
 import { Button } from '@/components/ui/button';
 import { useLabels } from '@/hooks/use-labels';
 import { Badge } from '@/components/ui/badge';

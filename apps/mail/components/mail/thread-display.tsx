@@ -41,7 +41,7 @@ import { cleanHtml } from '@/lib/email-utils';
 import ReplyCompose from './reply-composer';
 import { NotesPanel } from './note-panel';
 import { cn, FOLDERS } from '@/lib/utils';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import MailDisplay from './mail-display';
 import { useParams } from 'react-router';
 import { Inbox } from 'lucide-react';

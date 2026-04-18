@@ -4,7 +4,7 @@ import { Settings, Image, FileImage, Zap } from 'lucide-react';
 import type { ImageQuality } from '@/lib/image-compression';
 
 import { Label } from '@/components/ui/label';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 
 interface ImageCompressionSettingsProps {
   quality: ImageQuality;

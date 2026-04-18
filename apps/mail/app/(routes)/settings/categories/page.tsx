@@ -35,7 +35,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { GripVertical } from 'lucide-react';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'sonner';
 

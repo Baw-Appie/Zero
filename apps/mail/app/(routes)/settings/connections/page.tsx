@@ -22,7 +22,7 @@ import { useBilling } from '@/hooks/use-billing';
 import { emailProviders } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useQueryState } from 'nuqs';
 import { useState } from 'react';
 import { toast } from 'sonner';

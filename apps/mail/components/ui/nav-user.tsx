@@ -33,7 +33,7 @@ import { useBilling } from '@/hooks/use-billing';
 import { SunIcon } from '../icons/animated/sun';
 import { clear as idbClear } from 'idb-keyval';
 import { useLocation } from 'react-router';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useTheme } from 'next-themes';
 import { useQueryState } from 'nuqs';
 import { Button } from './button';

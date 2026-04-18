@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useEffect, useState } from 'react';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 
 interface HotkeyRecorderProps {
   isOpen: boolean;

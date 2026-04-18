@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -14,6 +15,7 @@ const formSchema = z.object({
 });
 
 export default function SignupZero() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,12 +27,26 @@ export default function SignupZero() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await toast.promise(
-      signUp.email({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        callbackURL: `${window.location.origin}/settings/connections`,
-      }),
+      (async () => {
+        await signUp.email({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
+
+        const response = await fetch(
+          `${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/public/imap/setup`,
+          {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: values.email, password: values.password }),
+          },
+        );
+
+        if (!response.ok) throw new Error('Failed to configure IMAP connection');
+        navigate('/mail/inbox');
+      })(),
       {
         loading: 'Signing up...',
         success: 'Account created',

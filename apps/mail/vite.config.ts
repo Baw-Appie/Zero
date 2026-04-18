@@ -1,4 +1,3 @@
-import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import { reactRouter } from '@react-router/dev/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -43,11 +42,6 @@ export default defineConfig({
         });
       },
     },
-    paraglideVitePlugin({
-      project: './project.inlang',
-      outdir: './paraglide',
-      strategy: ['cookie', 'baseLocale'],
-    }),
   ],
   server: {
     port: 3000,

@@ -11,7 +11,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import { useShortcuts } from './use-hotkey-utils';
 import { useThreads } from '@/hooks/use-threads';
 // import { cleanSearchValue } from '@/lib/utils';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { toast } from 'sonner';
 
 export function MailListHotkeys() {

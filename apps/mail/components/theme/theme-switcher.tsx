@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/select';
 import { Laptop, Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 interface ModeToggleProps {

@@ -11,7 +11,7 @@ import { emailProviders } from '@/lib/constants';
 import { authClient } from '@/lib/auth-client';
 import { Plus, UserPlus } from 'lucide-react';
 import { useLocation } from 'react-router';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';

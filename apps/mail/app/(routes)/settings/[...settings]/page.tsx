@@ -3,7 +3,7 @@ import ConnectionsPage from '../connections/page';
 import AppearancePage from '../appearance/page';
 import ShortcutsPage from '../shortcuts/page';
 import SecurityPage from '../security/page';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import GeneralPage from '../general/page';
 import { useParams } from 'react-router';
 import LabelsPage from '../labels/page';

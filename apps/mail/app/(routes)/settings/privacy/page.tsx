@@ -19,7 +19,7 @@ import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { XIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import * as z from 'zod';

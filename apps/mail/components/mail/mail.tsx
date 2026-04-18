@@ -29,7 +29,7 @@ import AIToggleButton from '../ai-toggle-button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import { useSession } from '@/lib/auth-client';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { isMac } from '@/lib/platform';
 import { useQueryState } from 'nuqs';
 import { cn } from '@/lib/utils';

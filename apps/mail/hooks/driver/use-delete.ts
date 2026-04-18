@@ -4,7 +4,7 @@ import { useTRPC } from '@/providers/query-provider';
 import { useMutation } from '@tanstack/react-query';
 import { useThreads } from '@/hooks/use-threads';
 import { useStats } from '@/hooks/use-stats';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useState } from 'react';
 import { toast } from 'sonner';
 

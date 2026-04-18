@@ -65,7 +65,7 @@ import { useThreadNotes } from '@/hooks/use-notes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { CSS } from '@dnd-kit/utilities';
 import type { Note } from '@/types';
 import { cn } from '@/lib/utils';

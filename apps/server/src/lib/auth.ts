@@ -18,7 +18,7 @@ import { dubAnalytics } from '@dub/better-auth';
 import { defaultUserSettings } from './schemas';
 import { disableBrainFunction } from './brain';
 import { APIError } from 'better-auth/api';
-import { EProviders, type EProviders } from '../types';
+import { EProviders } from '../types';
 import { createDriver } from './driver';
 import { Autumn } from 'autumn-js';
 import { createDb } from '../db';

@@ -18,7 +18,7 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '../ui/button';
 
 import type { Editor } from '@tiptap/core';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 
 export const Toolbar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return null;

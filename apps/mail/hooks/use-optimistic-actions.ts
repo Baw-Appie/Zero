@@ -7,7 +7,7 @@ import type { ThreadDestination } from '@/lib/thread-actions';
 import { useTRPC } from '@/providers/query-provider';
 import { useMail } from '@/components/mail/use-mail';
 import { moveThreadsTo } from '@/lib/thread-actions';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { useQueryState } from 'nuqs';
 import { useCallback } from 'react';
 import posthog from 'posthog-js';

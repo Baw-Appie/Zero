@@ -3,7 +3,7 @@ import { formatDisplayKeys } from '@/lib/hotkeys/use-hotkey-utils';
 import { useShortcutCache } from '@/lib/hotkeys/use-hotkey-utils';
 import { useCategorySettings } from '@/hooks/use-categories';
 import { type Shortcut } from '@/config/shortcuts';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { type ReactNode } from 'react';
 
 export default function ShortcutsPage() {

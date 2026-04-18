@@ -11,7 +11,7 @@ import { useThread } from '@/hooks/use-threads';
 import { useSession } from '@/lib/auth-client';
 import { serializeFiles } from '@/lib/schemas';
 import { useDraft } from '@/hooks/use-drafts';
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import type { Sender } from '@/types';
 import { useQueryState } from 'nuqs';
 import { useEffect } from 'react';

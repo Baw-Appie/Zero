@@ -1,4 +1,4 @@
-import { m } from '@/paraglide/messages';
+import { m } from '@/lib/i18n/messages';
 import { formatDate } from './utils';
 import type { Note } from '@/types';
 import React from 'react';
