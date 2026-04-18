@@ -33,23 +33,11 @@ export default function SignupZero() {
           email: values.email,
           password: values.password,
         });
-
-        const response = await fetch(
-          `${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/public/imap/setup`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: values.email, password: values.password }),
-          },
-        );
-
-        if (!response.ok) throw new Error('Failed to configure IMAP connection');
-        navigate('/mail/inbox');
+        navigate('/zero/login');
       })(),
       {
         loading: 'Signing up...',
-        success: 'Account created',
+        success: 'Account created. Please verify your email and sign in.',
         error: 'Sign up failed',
       },
     );

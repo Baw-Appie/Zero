@@ -26,6 +26,11 @@ export default function LoginZero() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await toast.promise(
       (async () => {
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (!isLocalhost && window.location.protocol !== 'https:') {
+          throw new Error('HTTPS is required to configure IMAP credentials');
+        }
+
         await signIn.email({
           email: values.email,
           password: values.password,

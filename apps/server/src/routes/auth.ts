@@ -1,4 +1,5 @@
 import { authProviders, customProviders, isProviderEnabled } from '../lib/auth-providers';
+import { encryptCredential } from '../lib/credential-crypto';
 import { getZeroDB } from '../lib/server-utils';
 import { EProviders } from '../types';
 import type { HonoContext } from '../ctx';
@@ -65,10 +66,11 @@ publicRouter.post('/imap/setup', async (c) => {
   if (!parsed.success) return c.json({ success: false, error: 'Invalid payload' }, 400);
 
   const { email, password } = parsed.data;
+  const encryptedPassword = await encryptCredential(password);
   const db = await getZeroDB(session.user.id);
   const [createdConnection] = await db.createConnection(EProviders.imap, email, {
-    accessToken: password,
-    refreshToken: password,
+    accessToken: encryptedPassword,
+    refreshToken: encryptedPassword,
     name: session.user.name || email,
     picture: session.user.image || '',
     expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),

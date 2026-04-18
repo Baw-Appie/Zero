@@ -43,6 +43,8 @@ const dictionaries: Record<Locale, MessageDict> = {
   vi: vi as MessageDict,
 };
 
+const resolvedMessageCache = new Map<string, unknown>();
+
 const lookup = (dict: MessageDict, key: string): unknown => {
   const path = key.split('.');
   let current: unknown = dict;
@@ -58,8 +60,12 @@ const interpolate = (template: string, args?: Record<string, unknown>) =>
 
 const resolveMessage = (key: string, args?: Record<string, unknown>) => {
   const locale = getLocale();
+  const cacheKey = `${locale}:${key}`;
   const currentDict = dictionaries[locale] || dictionaries.en;
-  const value = lookup(currentDict, key) ?? lookup(dictionaries.en, key);
+  const cached = resolvedMessageCache.get(cacheKey);
+  const value =
+    cached !== undefined ? cached : (lookup(currentDict, key) ?? lookup(dictionaries.en, key));
+  if (cached === undefined) resolvedMessageCache.set(cacheKey, value);
 
   if (typeof value === 'string') return interpolate(value, args);
   if (Array.isArray(value)) {

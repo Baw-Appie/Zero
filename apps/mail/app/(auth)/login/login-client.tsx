@@ -117,11 +117,14 @@ function LoginClientContent({ providers, isProd }: LoginClientProps) {
     if (provider.isCustom && provider.customRedirectPath) {
       navigate(provider.customRedirectPath);
     } else {
+      const socialProvider =
+        provider.id === 'google' || provider.id === 'microsoft' ? provider.id : null;
+      if (!socialProvider) return;
       toast.promise(
-          signIn.social({
-            provider: provider.id as 'google' | 'microsoft',
-            callbackURL: `${window.location.origin}/mail`,
-          }),
+        signIn.social({
+          provider: socialProvider,
+          callbackURL: `${window.location.origin}/mail`,
+        }),
         {
           error: 'Login redirect failed',
         },

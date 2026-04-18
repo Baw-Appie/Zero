@@ -1,6 +1,7 @@
 import type { DeleteAllSpamResponse, IOutgoingMessage, Label, ParsedMessage, Sender } from '../../types';
 import { sanitizeTipTapHtml } from '../sanitize-tip-tap-html';
 import type { IGetThreadResponse, MailManager, ParsedDraft } from './types';
+import { decryptCredential } from '../credential-crypto';
 import { createMimeMessage } from 'mimetext';
 import { simpleParser } from 'mailparser';
 import { ImapFlow } from 'imapflow';
@@ -24,40 +25,42 @@ const KNOWN_MAILBOXES: MailboxName[] = ['INBOX', 'Sent', 'Drafts', 'Trash', 'Jun
 export class ImapMailManager implements MailManager {
   constructor(public config: { auth: { userId: string; accessToken: string; refreshToken: string; email: string } }) {}
 
-  private getPassword() {
+  private async getPassword() {
     const password = this.config.auth.refreshToken || this.config.auth.accessToken;
     if (!password) throw new Error('Missing IMAP/SMTP password in connection credentials');
-    return password;
+    return await decryptCredential(password);
   }
 
-  private createImapClient() {
+  private async createImapClient() {
     if (!env.IMAP_HOST || !env.IMAP_PORT) throw new Error('IMAP server is not configured');
+    const password = await this.getPassword();
     return new ImapFlow({
       host: env.IMAP_HOST,
       port: Number(env.IMAP_PORT),
       secure: env.IMAP_SECURE === 'true',
       auth: {
         user: this.config.auth.email,
-        pass: this.getPassword(),
+        pass: password,
       },
     });
   }
 
-  private createSmtpTransporter() {
+  private async createSmtpTransporter() {
     if (!env.SMTP_HOST || !env.SMTP_PORT) throw new Error('SMTP server is not configured');
+    const password = await this.getPassword();
     return nodemailer.createTransport({
       host: env.SMTP_HOST,
       port: Number(env.SMTP_PORT),
       secure: env.SMTP_SECURE === 'true',
       auth: {
         user: this.config.auth.email,
-        pass: this.getPassword(),
+        pass: password,
       },
     });
   }
 
   private async withImap<T>(runner: (client: ImapFlow) => Promise<T>) {
-    const client = this.createImapClient();
+    const client = await this.createImapClient();
     await client.connect();
     try {
       return await runner(client);
@@ -68,6 +71,13 @@ export class ImapMailManager implements MailManager {
 
   private getMailbox(folder: string) {
     return FOLDER_TO_MAILBOX[folder] ?? 'INBOX';
+  }
+
+  private sourceToString(source: unknown) {
+    if (typeof source === 'string') return source;
+    if (source instanceof Uint8Array) return Buffer.from(source).toString('utf8');
+    if (source instanceof ArrayBuffer) return Buffer.from(source).toString('utf8');
+    return '';
   }
 
   private toSenderList(input: { value?: { address?: string; name?: string }[] } | undefined): Sender[] {
@@ -178,10 +188,7 @@ export class ImapMailManager implements MailManager {
       if (!found?.msg?.source) {
         return { messages: [], hasUnread: false, totalReplies: 0, labels: [] };
       }
-      const source =
-        typeof found.msg.source === 'string'
-          ? found.msg.source
-          : Buffer.from(found.msg.source as Uint8Array).toString('utf8');
+      const source = this.sourceToString(found.msg.source);
       const parsed = await this.toParsedMessage(uid, source, {
         flags: found.msg.flags as Set<string> | undefined,
         internalDate: found.msg.internalDate as Date | undefined,
@@ -198,7 +205,7 @@ export class ImapMailManager implements MailManager {
   }
 
   public async create(data: IOutgoingMessage): Promise<{ id?: string | null }> {
-    const transporter = this.createSmtpTransporter();
+    const transporter = await this.createSmtpTransporter();
     const info = await transporter.sendMail({
       from: data.fromEmail || this.config.auth.email,
       to: data.to.map((r) => r.email).join(', '),
@@ -474,9 +481,7 @@ export class ImapMailManager implements MailManager {
     return this.withImap(async (client) => {
       const found = await this.fetchByUidAcrossMailboxes(client, uid);
       if (!found?.msg?.source) throw new Error('Email not found');
-      return typeof found.msg.source === 'string'
-        ? found.msg.source
-        : Buffer.from(found.msg.source as Uint8Array).toString('utf8');
+      return this.sourceToString(found.msg.source);
     });
   }
 }

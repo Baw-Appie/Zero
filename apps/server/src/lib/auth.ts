@@ -25,20 +25,23 @@ import { createDb } from '../db';
 import { Effect } from 'effect';
 import { env } from '../env';
 import { Dub } from 'dub';
+import type { ReactElement } from 'react';
+
+const oauthProviders = new Set<string>([EProviders.google, EProviders.microsoft]);
 
 const scheduleCampaign = (userInfo: { address: string; name: string }) =>
   Effect.gen(function* () {
     const name = userInfo.name || 'there';
     const resendService = resend();
 
-    const sendEmail = (subject: string, react: unknown, scheduledAt?: string) =>
+    const sendEmail = (subject: string, react: ReactElement, scheduledAt?: string) =>
       Effect.promise(() =>
         resendService.emails
           .send({
             from: '0.email <onboarding@0.email>',
             to: userInfo.address,
             subject,
-            react: react as never,
+            react,
             ...(scheduledAt && { scheduledAt }),
           })
           .then(() => void 0),
@@ -89,7 +92,6 @@ const scheduleCampaign = (userInfo: { address: string; name: string }) =>
   });
 
 const connectionHandlerHook = async (account: Account) => {
-  const oauthProviders = new Set<string>([EProviders.google, EProviders.microsoft]);
   if (!oauthProviders.has(account.providerId)) {
     return;
   }
@@ -265,7 +267,7 @@ export const createAuth = () => {
     },
     emailAndPassword: {
       enabled: true,
-      requireEmailVerification: false,
+      requireEmailVerification: true,
       sendResetPassword: async ({ user, url }) => {
         await resend().emails.send({
           from: '0.email <onboarding@0.email>',
