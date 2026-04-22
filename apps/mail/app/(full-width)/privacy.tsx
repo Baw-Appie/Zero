@@ -99,36 +99,18 @@ const sections = [
         </p>
         <p className="font-semibold">
           Important: Zero is a client-only email application. We DO NOT store your emails on our
-          servers. All email data is processed directly between your browser and Gmail.
+          servers. All email data is processed directly between your browser and your connected
+          mailbox.
         </p>
         <p>Our verified privacy commitments:</p>
         <ul className="ml-4 list-disc space-y-2">
-          <li>
-            Zero Email Storage: We never store your emails - they remain in your Gmail account
-          </li>
+          <li>Zero Email Storage: We never store your emails in our systems</li>
           <li>Client-Side Processing: All email processing happens in your browser</li>
           <li>Open Source: Our entire codebase is public and can be audited</li>
-          <li>Minimal Data: We only request essential Gmail API permissions</li>
-          <li>User Control: You can revoke our access to your Gmail at any time</li>
+          <li>Minimal Data: We only request data needed to provide core functionality</li>
+          <li>User Control: You can disconnect connected mailboxes at any time</li>
         </ul>
       </div>
-    ),
-  },
-  {
-    title: 'Google Account Integration',
-    content: (
-      <>
-        <p className="mb-4">When you use Zero with your Google Account:</p>
-        <ul className="ml-4 list-disc space-y-2">
-          <li>We request access to your Gmail data only after receiving your explicit consent</li>
-          <li>We access only the necessary Gmail API scopes required for email functionality</li>
-          <li>We use secure OAuth 2.0 authentication provided by Google</li>
-          <li>
-            You can revoke our access to your Google account at any time through your Google Account
-            settings
-          </li>
-        </ul>
-      </>
     ),
   },
   {
@@ -136,15 +118,14 @@ const sections = [
     content: (
       <div className="space-y-6">
         <div>
-          <h3 className="mb-3 text-lg font-medium">Google Services Data Handling</h3>
+          <h3 className="mb-3 text-lg font-medium">Email Data Handling</h3>
           <ul className="ml-4 list-disc space-y-2">
-            <li>Email data is processed in accordance with Google API Services User Data Policy</li>
             <li>
               We only process and display email data - we don&apos;t store copies of your emails
             </li>
             <li>
-              All data transmission between our service and Google is encrypted using
-              industry-standard TLS 1.3 protocols
+              All data transmission between our service and your mail provider is encrypted using
+              industry-standard TLS protocols
             </li>
             <li>
               We maintain limited temporary caches only as necessary for application functionality,
@@ -192,11 +173,10 @@ const sections = [
               End-to-end encryption for all email communications using industry-standard protocols
             </li>
             <li>
-              Secure OAuth 2.0 authentication for Google services with strict scope limitations
+              Secure authentication and encrypted transport for connected mail services
             </li>
             <li>Regular third-party security audits and penetration testing</li>
             <li>Open-source codebase for transparency and community security review</li>
-            <li>Compliance with Google API Services User Data Policy and security requirements</li>
             <li>Real-time monitoring for suspicious activities and potential security threats</li>
             <li>Automated security patches and dependency updates</li>
           </ul>
@@ -224,110 +204,10 @@ const sections = [
     ),
   },
   {
-    title: 'Google User Data Handling',
-    content: (
-      <div className="space-y-6">
-        <div>
-          <h3 className="mb-3 text-lg font-medium">Data Access and Usage</h3>
-          <ul className="ml-4 list-disc space-y-2">
-            <li>
-              We access the following Google user data through the Gmail API:
-              <ul className="ml-4 mt-2 list-disc space-y-1">
-                <li>Email content and attachments</li>
-                <li>Email metadata (subject, dates, recipients)</li>
-                <li>Labels and folder structure</li>
-                <li>Basic profile information</li>
-              </ul>
-            </li>
-            <li>This data is used exclusively for providing email functionality within Zero</li>
-            <li>No Google user data is used for advertising, marketing, or profiling purposes</li>
-            <li>We maintain detailed audit logs of all data access for security and compliance</li>
-            <li>Access to user data is strictly limited to essential personnel</li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="mb-3 text-lg font-medium">Data Sharing and Transfer</h3>
-          <ul className="ml-4 list-disc space-y-2">
-            <li>
-              Google user data is never shared with third parties except as required for core
-              service functionality
-            </li>
-            <li>
-              When necessary, we only work with service providers who comply with Google API
-              Services User Data Policy
-            </li>
-            <li>All service providers are bound by strict confidentiality agreements</li>
-            <li>
-              We maintain a current list of all third-party service providers with access to Google
-              user data
-            </li>
-            <li>Data sharing agreements are reviewed annually</li>
-            <li>Users are notified of any material changes to our data sharing practices</li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="mb-3 text-lg font-medium">Data Retention and Deletion</h3>
-          <ul className="ml-4 list-disc space-y-2">
-            <li>Email data is processed in real-time and not permanently stored</li>
-            <li>Temporary caches are automatically cleared after 24 hours</li>
-            <li>Users can request immediate deletion of their cached data</li>
-            <li>
-              Account deletion process:
-              <ul className="ml-4 mt-2 list-disc space-y-1">
-                <li>All user data is immediately marked for deletion</li>
-                <li>Cached data is purged within 24 hours</li>
-                <li>Audit logs are retained for 30 days then permanently deleted</li>
-                <li>Backup data is removed within 7 days</li>
-              </ul>
-            </li>
-            <li>We provide a data export tool for users to download their settings</li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="mb-3 text-lg font-medium">User Rights and Controls</h3>
-          <ul className="ml-4 list-disc space-y-2">
-            <li>Right to access: Request a copy of your data</li>
-            <li>Right to rectification: Correct inaccurate data</li>
-            <li>Right to erasure: Request deletion of your data</li>
-            <li>Right to restrict processing: Limit how we use your data</li>
-            <li>Right to data portability: Export your data</li>
-            <li>Right to object: Opt-out of certain data processing</li>
-          </ul>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: 'Limited Use Disclosure',
-    content: (
-      <div>
-        Our use and transfer to any other app of information received from Google APIs will adhere
-        to the{' '}
-        <a
-          href="https://developers.google.com/terms/api-services-user-data-policy"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Google API Services User Data Policy
-          <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
-        </a>
-        , including the Limited Use requirements.
-      </div>
-    ),
-  },
-  {
     title: 'Your Rights and Controls',
     content: (
       <ul className="ml-4 list-disc space-y-2">
-        <li>Right to revoke access to your Google account at any time</li>
+        <li>Right to disconnect connected accounts at any time</li>
         <li>Right to request deletion of any cached data</li>
         <li>Right to export your data</li>
         <li>Right to lodge complaints about data handling</li>

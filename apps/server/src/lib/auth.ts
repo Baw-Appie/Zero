@@ -26,7 +26,7 @@ import { env } from '../env';
 import { Dub } from 'dub';
 import type { ReactElement } from 'react';
 
-const oauthProviders = new Set<string>([EProviders.google, EProviders.microsoft]);
+const oauthProviders = new Set<string>();
 
 const scheduleCampaign = (userInfo: { address: string; name: string }) =>
   Effect.gen(function* () {
