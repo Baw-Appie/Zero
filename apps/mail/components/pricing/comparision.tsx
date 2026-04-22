@@ -1,5 +1,5 @@
 import { Plus, PurpleThickCheck, ThickCheck } from '../icons/icons';
-import { useSession, signIn } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { useBilling } from '@/hooks/use-billing';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
@@ -11,16 +11,7 @@ export default function Comparision() {
 
   const handleUpgrade = async () => {
     if (!session) {
-      toast.promise(
-        signIn.social({
-          provider: 'google',
-          callbackURL: `${window.location.origin}/pricing`,
-        }),
-        {
-          success: 'Redirecting to login...',
-          error: 'Login redirect failed',
-        },
-      );
+      navigate('/zero/login');
       return;
     }
 
@@ -152,16 +143,7 @@ export default function Comparision() {
                     // User is logged in, redirect to inbox
                     navigate('/mail/inbox');
                   } else {
-                    // User is not logged in, show sign-in dialog
-                    toast.promise(
-                      signIn.social({
-                        provider: 'google',
-                        callbackURL: `${window.location.origin}/mail`,
-                      }),
-                      {
-                        error: 'Login redirect failed',
-                      },
-                    );
+                    navigate('/zero/login');
                   }
                 }}
                 className="inline-flex h-[40px] items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-lg bg-linear-to-l from-white/0 to-white/10 p-[3.5px] outline outline-1 -outline-offset-1 outline-white/10"

@@ -241,22 +241,20 @@ export function NavMain({ items }: NavMainProps) {
             <SidebarMenuItem className="mb-4" style={{ height: 'auto' }}>
               <div className="mx-2 mb-4 flex items-center justify-between">
                 <span className="text-muted-foreground text-[13px] dark:text-[#898989]">
-                  {activeAccount?.providerId === 'google' ? 'Labels' : 'Folders'}
+                  Folders
                 </span>
-                {activeAccount?.providerId === 'google' ? (
-                  <LabelDialog
-                    trigger={
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="mr-1 h-4 w-4 p-0 hover:bg-transparent"
-                      >
-                        <Plus className="text-muted-foreground h-3 w-3 dark:text-[#898989]" />
-                      </Button>
-                    }
-                    onSubmit={onSubmit}
-                  />
-                ) : activeAccount?.providerId === 'microsoft' ? null : null}
+                <LabelDialog
+                  trigger={
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="mr-1 h-4 w-4 p-0 hover:bg-transparent"
+                    >
+                      <Plus className="text-muted-foreground h-3 w-3 dark:text-[#898989]" />
+                    </Button>
+                  }
+                  onSubmit={onSubmit}
+                />
               </div>
 
               {activeAccount ? <SidebarLabels data={userLabels ?? []} /> : null}

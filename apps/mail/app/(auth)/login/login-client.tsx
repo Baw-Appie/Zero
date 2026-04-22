@@ -1,14 +1,12 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Suspense, useEffect, useState, type ReactNode } from 'react';
 import type { EnvVarInfo } from '@zero/server/auth-providers';
-import { Google, Mail, Microsoft } from '@/components/icons/icons';
+import { Mail } from '@/components/icons/icons';
 import ErrorMessage from '@/app/(auth)/login/error-message';
 import { Button } from '@/components/ui/button';
 import { TriangleAlert } from 'lucide-react';
-import { signIn } from '@/lib/auth-client';
 import { useNavigate } from 'react-router';
 import { useQueryState } from 'nuqs';
-import { toast } from 'sonner';
 
 interface EnvVarStatus {
   name: string;
@@ -37,11 +35,6 @@ const getProviderIcon = (providerId: string, className?: string): ReactNode => {
   const defaultClass = className || 'w-5 h-5 mr-2';
 
   switch (providerId) {
-    case 'google':
-      return <Google className={defaultClass} />;
-
-    case 'microsoft':
-      return <Microsoft className={defaultClass} />;
     case 'imap':
       return <Mail className={defaultClass} />;
 
@@ -110,25 +103,10 @@ function LoginClientContent({ providers, isProd }: LoginClientProps) {
   const shouldShowSimplifiedMessage = isProd && hasMissingRequiredProviders;
 
   const handleProviderClick = (provider: Provider) => {
-    if (provider.id === 'imap') {
-      navigate('/zero/login');
-      return;
-    }
     if (provider.isCustom && provider.customRedirectPath) {
       navigate(provider.customRedirectPath);
     } else {
-      const socialProvider =
-        provider.id === 'google' || provider.id === 'microsoft' ? provider.id : null;
-      if (!socialProvider) return;
-      toast.promise(
-        signIn.social({
-          provider: socialProvider,
-          callbackURL: `${window.location.origin}/mail`,
-        }),
-        {
-          error: 'Login redirect failed',
-        },
-      );
+      navigate('/zero/login');
     }
   };
 

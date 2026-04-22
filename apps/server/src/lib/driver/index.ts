@@ -1,11 +1,7 @@
 import type { MailManager, ManagerConfig } from './types';
-import { OutlookMailManager } from './microsoft';
-import { GoogleMailManager } from './google';
 import { ImapMailManager } from './imap';
 
 const supportedProviders = {
-  google: GoogleMailManager,
-  microsoft: OutlookMailManager,
   imap: ImapMailManager,
 };
 

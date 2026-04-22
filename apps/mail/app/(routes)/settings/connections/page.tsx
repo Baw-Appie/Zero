@@ -11,7 +11,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { SettingsCard } from '@/components/settings/settings-card';
 import { AddConnectionDialog } from '@/components/connection/add';
 
-import { useSession, authClient } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { useConnections } from '@/hooks/use-connections';
 import { useTRPC } from '@/providers/query-provider';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -148,14 +148,7 @@ export default function ConnectionsPage() {
                             variant="secondary"
                             size="sm"
                             onClick={async () => {
-                              if (connection.providerId === 'imap') {
-                                window.location.href = '/zero/login';
-                                return;
-                              }
-                              await authClient.linkSocial({
-                                provider: connection.providerId,
-                                callbackURL: `${window.location.origin}/settings/connections`,
-                              });
+                              window.location.href = '/zero/login';
                             }}
                           >
                             <Unplug className="size-4" />

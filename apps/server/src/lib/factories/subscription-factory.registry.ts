@@ -1,14 +1,8 @@
-// import { OutlookSubscriptionFactory } from './outlook-subscription.factory';
-import { GoogleSubscriptionFactory } from './google-subscription.factory';
 import { BaseSubscriptionFactory } from './base-subscription.factory';
 import { EProviders } from '../../types';
 
 // Provider factory registry
 const subscriptionFactoryRegistry = new Map<EProviders, BaseSubscriptionFactory>();
-
-// Register Google factory
-const googleFactory = new GoogleSubscriptionFactory();
-subscriptionFactoryRegistry.set(EProviders.google, googleFactory);
 
 export function getSubscriptionFactory(provider: EProviders): BaseSubscriptionFactory {
   const factory = subscriptionFactoryRegistry.get(provider);
@@ -21,6 +15,3 @@ export function getSubscriptionFactory(provider: EProviders): BaseSubscriptionFa
 export function getAllRegisteredProviders(): EProviders[] {
   return Array.from(subscriptionFactoryRegistry.keys());
 }
-
-// Export individual factories for direct access if needed
-export { googleFactory };

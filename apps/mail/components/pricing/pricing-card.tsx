@@ -1,5 +1,5 @@
 import { PurpleThickCheck, ThickCheck } from '../icons/icons';
-import { useSession, signIn } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { PricingSwitch } from '../ui/pricing-switch';
 import { useBilling } from '@/hooks/use-billing';
 import { useNavigate } from 'react-router';
@@ -43,22 +43,6 @@ const PRICING_CONSTANTS = {
   ANNUAL_DISCOUNT: 0.5,
 } as const;
 
-const handleGoogleSignIn = (
-  callbackURL: string,
-  options?: { loading?: string; success?: string },
-) => {
-  return toast.promise(
-    signIn.social({
-      provider: 'google',
-      callbackURL,
-    }),
-    {
-      success: options?.success || 'Redirecting to login...',
-      error: 'Login redirect failed',
-    },
-  );
-};
-
 interface FeatureItemProps {
   text: string;
   isPro?: boolean;
@@ -89,7 +73,7 @@ export default function PricingCard() {
 
   const handleUpgrade = async () => {
     if (!session) {
-      handleGoogleSignIn(`${window.location.origin}/pricing`);
+      navigate('/zero/login');
       return;
     }
 

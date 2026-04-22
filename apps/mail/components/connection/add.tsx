@@ -8,9 +8,7 @@ import {
 } from '../ui/dialog';
 import { useBilling } from '@/hooks/use-billing';
 import { emailProviders } from '@/lib/constants';
-import { authClient } from '@/lib/auth-client';
 import { Plus, UserPlus } from 'lucide-react';
-import { useLocation } from 'react-router';
 import { m } from '@/lib/i18n/messages';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
@@ -33,7 +31,6 @@ export const AddConnectionDialog = ({
     if (!connections?.remaining && !connections?.unlimited) return false;
     return (connections?.unlimited && !connections?.remaining) || (connections?.remaining ?? 0) > 0;
   }, [connections]);
-  const pathname = useLocation().pathname;
 
   const handleUpgrade = async () => {
     if (attach) {
@@ -110,14 +107,7 @@ export const AddConnectionDialog = ({
                   variant="outline"
                   className="h-24 w-full flex-col items-center justify-center gap-2"
                   onClick={async () => {
-                    if (provider.providerId === 'imap') {
-                      window.location.href = '/zero/login';
-                      return;
-                    }
-                    await authClient.linkSocial({
-                      provider: provider.providerId,
-                      callbackURL: `${window.location.origin}${pathname}`,
-                    });
+                    window.location.href = '/zero/login';
                   }}
                 >
                   <Icon className="size-6!" />

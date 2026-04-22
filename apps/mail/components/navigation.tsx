@@ -9,7 +9,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { GitHub, Twitter, Discord, LinkedIn, Star } from './icons/icons';
 import { AnimatedNumber } from '@/components/ui/animated-number';
-import { signIn, useSession } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { Separator } from '@/components/ui/separator';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router';
@@ -17,7 +17,6 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
 
 const resources = [
   {
@@ -194,15 +193,7 @@ export function Navigation() {
                 if (session) {
                   navigate('/mail/inbox');
                 } else {
-                  toast.promise(
-                    signIn.social({
-                      provider: 'google',
-                      callbackURL: `${window.location.origin}/mail`,
-                    }),
-                    {
-                      error: 'Login redirect failed',
-                    },
-                  );
+                  navigate('/zero/login');
                 }
               }}
             >

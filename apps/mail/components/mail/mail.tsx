@@ -484,7 +484,7 @@ export function MailLayout() {
                         </div>
                       </Button>
 
-                      {activeConnection?.providerId === 'google' && folder === 'inbox' && (
+                      {folder === 'inbox' && (
                         <CategoryDropdown isMultiSelectMode={mail.bulkSelected.length > 0} />
                       )}
                     </>

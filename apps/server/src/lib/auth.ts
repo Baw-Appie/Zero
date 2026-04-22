@@ -12,7 +12,6 @@ import { type Account, betterAuth, type BetterAuthOptions } from 'better-auth';
 import { getBrowserTimezone, isValidTimezone } from './timezones';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { getZeroDB, resetConnection } from './server-utils';
-import { getSocialProviders } from './auth-providers';
 import { redis, resend, twilio } from './services';
 import { dubAnalytics } from '@dub/better-auth';
 import { defaultUserSettings } from './schemas';
@@ -377,12 +376,11 @@ const createAuthConfig = () => {
       expiresIn: 60 * 60 * 24 * 30, // 30 days
       updateAge: 60 * 60 * 24 * 3, // 1 day (every 1 day the session expiration is updated)
     },
-    socialProviders: getSocialProviders(env as unknown as Record<string, string>),
     account: {
       accountLinking: {
         enabled: true,
         allowDifferentEmails: true,
-        trustedProviders: ['google', 'microsoft'],
+        trustedProviders: [],
       },
     },
     onAPIError: {

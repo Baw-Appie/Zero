@@ -27,7 +27,7 @@ import {
 } from '../icons/icons';
 import { PixelatedBackground, PixelatedLeft, PixelatedRight } from '@/components/home/pixelated-bg';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
-import { signIn, useSession } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { Link, useNavigate } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Balancer } from 'react-wrap-balancer';
@@ -35,7 +35,6 @@ import { Navigation } from '../navigation';
 import { useTheme } from 'next-themes';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import { toast } from 'sonner';
 import Footer from './footer';
 import React from 'react';
 
@@ -130,15 +129,7 @@ export default function HomeContent() {
               if (session) {
                 navigate('/mail/inbox');
               } else {
-                toast.promise(
-                  signIn.social({
-                    provider: 'google',
-                    callbackURL: `${window.location.origin}/mail`,
-                  }),
-                  {
-                    error: 'Login redirect failed',
-                  },
-                );
+                navigate('/zero/login');
               }
             }}
           >

@@ -1,4 +1,4 @@
-import { GmailColor, Mail } from '../components/icons/icons';
+import { Mail } from '../components/icons/icons';
 
 export const I18N_LOCALE_COOKIE_NAME = 'i18n:locale';
 export const SIDEBAR_COOKIE_NAME = 'sidebar:state';
@@ -17,11 +17,6 @@ export const emailProviders = [
     name: 'IMAP / SMTP',
     icon: Mail,
     providerId: 'imap',
-  },
-  {
-    name: 'Gmail',
-    icon: GmailColor,
-    providerId: 'google',
   },
 ] as const;
 
